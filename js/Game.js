@@ -20,9 +20,9 @@ class Game{
     startGame(){
         const screenOverlay = document.getElementById('overlay');
         screenOverlay.style.display = 'none';
-        this.getRandomPhrase();
         this.activePhrase = this.getRandomPhrase();
         this.activePhrase.addPhraseToDisplay();
+        
     }
 
     getRandomPhrase(){
@@ -31,19 +31,58 @@ class Game{
         return randomPhrase;
     }
 
-    handleInteraction(){
+    handleInteraction(button){
+        button.disabled = true;
+        const correctLetter = button.textContent;
+        const isCorrectLetter = this.activePhrase.checkLetter(correctLetter);
 
+        if (!isCorrectLetter){
+            button.classList.add('wrong');
+            this.removeLife()
+        }else{
+            button.classList.add('chosen');
+            this.activePhrase.showMatchedLetter(correctLetter);
+            if(this.checkForWin()){
+                this.gameOver(true)
+            }
+        }
     }
 
     removeLife(){
+        const heartImages = document.querySelectorAll('.tries img');
 
+        if (this.missed < 5){
+            heartImages[this.missed].src = 'images/lostHeart.png';
+            this.missed++;
+        }
+
+        if(this.missed === 5){
+            const isWin = false;
+            this.gameOver(isWin);
+        }
+        
     }
 
     checkForWin(){
-
+        const hiddenLetter = document.querySelectorAll('.hide');
+        if( hiddenLetter.length === 0){
+            return true;
+        }else {
+            return false;
+        }
     }
 
-    gameOver(){
-
+    gameOver(isWin){
+        const screenOverlay = document.getElementById('overlay');
+        const h1Message = document.getElementById('game-over-message');
+        screenOverlay.style.display = 'block';
+        
+        if(isWin){
+            screenOverlay.className = 'win';
+            h1Message.textContent = "YOU'VE WON!"
+        }else{
+            screenOverlay.className = 'lose';
+            h1Message.textContent = "TOO BAD! WANNA TRY AGAIN?"
+        }
     }
 }

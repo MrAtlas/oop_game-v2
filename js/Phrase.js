@@ -18,18 +18,23 @@ class Phrase {
             if(this.phrase[i] === ' '){
                 li.className = 'space';
             }else{
-                li.className = 'letter';
+                li.className = ` hide letter ${this.phrase[i]}`;
                 li.textContent = this.phrase[i];
             }
             ul.appendChild(li);
         }
     }
 
-    checkLetter(){
-        
+    checkLetter(letter){
+        return this.phrase.includes(letter);
     }
 
-    showMatchedLetter(){
+    showMatchedLetter(letter){
+        const matchedLetter = document.getElementsByClassName(letter);
 
+        for(let i = 0; i < matchedLetter.length; i++){
+            matchedLetter[i].classList.remove('hide');
+            matchedLetter[i].classList.add('show');
+        }
     }
 }
