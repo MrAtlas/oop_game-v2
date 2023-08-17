@@ -42,6 +42,11 @@ class Phrase {
         for(let i = 0; i < matchedLetter.length; i++){
             matchedLetter[i].classList.remove('hide');
             matchedLetter[i].classList.add('show');
+            //Animation
+            matchedLetter[i].style.transform = "rotateY( 360deg )";
+            matchedLetter[i].style.transition = "transform 0.5s";
+            //transform: rotateY( 180deg ) ;
+            //transition: transform 0.5s;
         }
     }
 }
