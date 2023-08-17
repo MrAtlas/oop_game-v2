@@ -17,6 +17,7 @@ class Game{
         this.activePhrase = null;
     }
 
+    //This will get the overlay and set display to none, activePrase will be set to the random phrase function 
     startGame(){
         const screenOverlay = document.getElementById('overlay');
         screenOverlay.style.display = 'none';
@@ -25,12 +26,16 @@ class Game{
         
     }
 
+    //return a random index from the phrases array
     getRandomPhrase(){
         const randomIndex = Math.floor(Math.random() * this.phrases.length);
         const randomPhrase = this.phrases[randomIndex];
         return randomPhrase;
     }
 
+    //pass the button parameter, disable it, use the check letter function of the phrase to the button text (letter)
+    //if not correct add class wrong and remove a life
+    //if correct add class chosen, show the letter and check for win
     handleInteraction(button){
         button.disabled = true;
         const correctLetter = button.textContent;
@@ -48,6 +53,9 @@ class Game{
         }
     }
 
+    //get all the heart images, if missed is less than 5 replace the image with a lost heart image, increment missed
+    //in this case missed is = 0
+    //else if missed = 5 gameOver will be called to false as it it a lost
     removeLife(){
         const heartImages = document.querySelectorAll('.tries img');
 
@@ -57,12 +65,15 @@ class Game{
         }
 
         if(this.missed === 5){
-            const isWin = false;
-            this.gameOver(isWin);
+            //const isWin = false;
+            this.gameOver(false);
         }
         
     }
 
+    //this will select all the boxes that have a class .hide
+    //if the length of this array of elements is = 0 then it's a win
+    //else is not a win (yet)
     checkForWin(){
         const hiddenLetter = document.querySelectorAll('.hide');
         if( hiddenLetter.length === 0){
@@ -72,6 +83,9 @@ class Game{
         }
     }
 
+    //passed a parameter bool, it will display the overlay element and get the h1 message
+    //if the parameter isWin is true then the class of the overlay is going to be win and message changed to you've won
+    //else the class wil be lose and message of lost
     gameOver(isWin){
         const screenOverlay = document.getElementById('overlay');
         const h1Message = document.getElementById('game-over-message');

@@ -9,6 +9,9 @@ class Phrase {
         this.phrase = phrase.toLowerCase();
     }
 
+    //this will get the ul element and for each char of the phrase will create a li element
+    //if it's a space it will add the space class else the hide letter with the letter char, append to the ul
+    //as for the example image
     addPhraseToDisplay(){
         const phraseDiv = document.getElementById('phrase');
         const ul = phraseDiv.firstElementChild;
@@ -25,10 +28,14 @@ class Phrase {
         }
     }
 
+    //checkLetter will get a letter parameter and return true or false if the prase include that letter
     checkLetter(letter){
         return this.phrase.includes(letter);
     }
 
+    //also will get a letter parameter and get the element that has the same classname of that letter
+    //then it loops trough the array of those letters *as it might be more than one
+    //and it add the show call and removes the hide class
     showMatchedLetter(letter){
         const matchedLetter = document.getElementsByClassName(letter);
 
