@@ -16,7 +16,9 @@ let game;
 const startGameButton = document.getElementById('btn__reset');
 
 const keyboardDiv = document.getElementById('qwerty');
-//const keyboardButtons = document.querySelectorAll('.key');
+const keyboardButtons = keyboardDiv.querySelectorAll('.key');
+
+//console.log(keyboardButtons)
 
 //I've added this fucntion to reset all the right guesses and wrong once, the showed letters and the lives
 function resetGame(){
@@ -48,11 +50,14 @@ startGameButton.addEventListener('click', () => {
     game.startGame();
 })
 
-//simply listens for the keys in the div keyboard and calls the handleInteraction on the target
-keyboardDiv.addEventListener('click', (e) => {
-    //console.log(e.target.textContent)
-    game.handleInteraction(e.target);
+//looping through each button and adding an event listener to each 
+keyboardButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+        game.handleInteraction(e.target);
+    })
 })
+
+
 
 //same as above but this will let the user use a physical keyboard by getting the key and checking if there is in the 
 //virtual keyboard
